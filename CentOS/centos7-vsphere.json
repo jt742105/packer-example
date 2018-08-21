@@ -1,0 +1,50 @@
+{
+	"builders": [{
+		"boot_command": [
+			"<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+		],
+		"boot_wait": "5s",
+		"disk_additional_size": "{{ user `disk_test01` }},{{ user `disk_test02` }}",
+		"disk_size": "{{user `disk_size`}}",
+		"disk_type_id": "thin",
+		"guest_os_type": "CentOS7-64",
+		"http_directory": "http",
+		"iso_checksum": "{{ user `checksum` }}",
+		"iso_checksum_type": "{{ user `iso_checksum_type` }}",
+		"iso_url": "{{ user `iso` }}",
+		"shutdown_command": "poweroff",
+		"headless": false,
+		"ssh_password": "happy",
+		"ssh_port": 22,
+		"ssh_timeout": "60000s",
+		"ssh_username": "root",
+		"ssh_wait_timeout": "60000s",
+		"type": "vmware-iso",
+		"vm_name": "CentOS-7-1804-minimal-{{ timestamp }}",
+		"remote_type": "esx5",
+    	"remote_host": "{{user `esxi_host`}}",
+	    "remote_datastore": "{{user `esxi_datastore`}}",
+	    "remote_username": "{{user `esxi_username`}}",
+	    "remote_password": "{{user `esxi_password`}}",
+	    "vnc_disable_password": "true",
+    	"keep_registered": true,
+		"vmx_data": {
+			"memsize": "1024",
+			"numvcpus": "1",
+			"ethernet0.networkName": "VM Network"
+		}
+	}],
+	"post-processors": [],
+	"variables": {
+		"checksum": "714acc0aefb32b7d51b515e25546835e55a90da9fb00417fbee2d03a62801efd",
+		"disk_size": "10000",
+		"disk_test01": "1000",
+		"disk_test02": "1000",
+		"iso": "./CentOS-7-x86_64-Minimal-1804.iso",
+		"iso_checksum_type": "sha256",
+		"esxi_host": "192.168.2.100",
+		"esxi_datastore": "datastore",
+		"esxi_username": "root",
+		"esxi_password": "123456"
+	}
+}

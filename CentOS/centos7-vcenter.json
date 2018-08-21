@@ -1,0 +1,38 @@
+{
+	"builders": [{
+		"boot_command": [
+			"<tab>text linux ks=hd:fd0:/ks.cfg<enter><wait>"
+		],
+	"vcenter_server": "192.168.2.100",
+	"boot_wait": "5s",
+      	"username": "root",
+      	"password": "123456",
+      	"insecure_connection": "true",
+      	"host":     "192.168.2.100",
+      	"resource_pool": "pool1",
+      	"network_card": "vmxnet3",
+      	"iso_paths": [
+        	"[datastore] ISO/CentOS-7-x86_64-Minimal-1804.iso"
+      	],
+		"disk_size": "{{user `disk_size`}}",
+		"guest_os_type": "centos7-64",
+		"shutdown_command": "/sbin/halt -p",
+		"ssh_password": "happy",
+		"ssh_port": 22,
+		"ssh_timeout": "60000s",
+		"ssh_username": "root",
+		"type": "vsphere-iso",
+		"network": "VM Network",
+		"floppy_files": "[datastore] setup_conf/ks.cfg",
+		"vm_name": "CentOS-7-1804-minimal-{{ timestamp }}"
+	}],
+	"post-processors": [],
+	"variables": {
+		"checksum": "714acc0aefb32b7d51b515e25546835e55a90da9fb00417fbee2d03a62801efd",
+		"disk_size": "10000",
+		"disk_test01": "1000",
+		"disk_test02": "1000",
+		"iso": "./CentOS-7-x86_64-Minimal-1804.iso",
+		"iso_checksum_type": "sha256"
+	}
+}
